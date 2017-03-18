@@ -1,0 +1,19 @@
+#! /bin/bash
+set -ex
+
+
+apt update
+
+xargs apt install -y --force-yes < /build/packages.txt
+
+apt clean
+
+pip3 install zipline
+
+useradd --create-home --home-dir /home/app --user-group app
+chown -R app:app /home/app
+
+chpasswd <<< 'root:password'
+
+
+

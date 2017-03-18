@@ -1,0 +1,6 @@
+libatlas-base-dev 
+python-dev
+gfortran
+pkg-config
+libfreetype6-dev
+
