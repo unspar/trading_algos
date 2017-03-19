@@ -8,7 +8,13 @@ xargs apt install -y --force-yes < /build/packages.txt
 
 apt clean
 
+
+pip3 install --upgrade pip
+pip3 install --upgrade numpy
+pip3 install --upgrade scipy
 pip3 install zipline
+pip3 install pyfolio[beysian]
+
 
 useradd --create-home --home-dir /home/app --user-group app
 chown -R app:app /home/app

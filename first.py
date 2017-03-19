@@ -5,8 +5,13 @@ from zipline.api import (
     symbol
 )
 
+import matplotlib.pyplot as plt
 from zipline import run_algorithm
+import pyfolio as pf
+import matplotlib
+import datetime
 
+matplotlib.style.use('ggplot')
 def initialize(context):
     context.i = 0
 
@@ -26,6 +31,8 @@ def handle_data(context, data):
     sym = symbol('AAPL')
 
     # Trading logic
+    order(sym, 1)
+    '''
     if short_mavg[sym] > long_mavg[sym]:
         # order_target orders as many shares as needed to
         # achieve the desired number of shares.
@@ -37,12 +44,22 @@ def handle_data(context, data):
     record(AAPL=data[sym].price,
            short_mavg=short_mavg[sym],
            long_mavg=long_mavg[sym])
+    '''
+zero_tc = datetime.timedelta()
+utc = datetime.timezone(zero_tc)
+start = datetime.datetime(2016, 1, 1, tzinfo=utc)
+end = datetime.datetime(2016, 12, 31, tzinfo=utc)
 
 
+rets= run_algorithm(initialize=initialize, handle_data=handle_data, capital_base=1000, start=start, end=end )
+stock_rets = rets.portfolio_value
+print(list(rets))
+stock_rets.plot()
+plt.show()
+#stock_rets = pf.utils.get_symbol_rets('FB')
+out_of_sample = stock_rets.index[-40]
 
-
-
-run_algorithm()
+pf.create_bayesian_tear_sheet(stock_rets, live_start_date=out_of_sample)
 
 
 

@@ -12,5 +12,5 @@ RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive /bin/bash /build/im_build
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-CMD ["/sbin/my_init"]
+#CMD ["/sbin/my_init"]
 
